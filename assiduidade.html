@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de Assiduidade</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="transferir.jpg" alt="Imagem ilustrativa">
+        <h2>Status da Assiduidade</h2>
+        <p id="resultado"></p>
+        <button onclick="voltarInicio()">Voltar</button>
+    </div>
+
+    <script>
+        const disciplina = localStorage.getItem("disciplina");
+        const faltas = parseInt(localStorage.getItem("faltas"), 10);
+        const totalAulas = 100; // Supondo que a disciplina tenha 100 aulas no semestre
+        const percentualMinimo = 76; // Percentual mínimo permitido de presença
+
+        const presencaAtual = ((totalAulas - faltas) / totalAulas) * 100;
+        let mensagem = `Disciplina: ${disciplina}\nPresença Atual: ${presencaAtual.toFixed(2)}%`;
+
+        if (presencaAtual < percentualMinimo) {
+            mensagem += "\nVocê ultrapassou o limite de faltas!";
+        } else {
+            const faltasRestantes = Math.floor((totalAulas * (1 - percentualMinimo / 100)) - faltas);
+            mensagem += `\nVocê ainda pode faltar ${faltasRestantes} vezes.`;
+        }
+
+        document.getElementById("resultado").innerText = mensagem;
+
+        function voltarInicio() {
+            window.location.href = "faltas.html";
+        }
+    </script>
+</body>
+
+</html>

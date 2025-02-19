@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disciplinas do Semestre</title>
+    <link rel="shortcut icon" href="9e6c4cd376c9a3be689962f74fe94f5d.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="transferir.jpg" alt="Imagem ilustrativa">
+        <h2>Seleccione uma Disciplina</h2>
+        <p id="curso-info"></p>
+        <select id="disciplinas-select">
+            <option value="">Carregando disciplinas...</option>
+        </select>
+        <button id="next-button">Próximo</button>
+        <button onclick="voltar()">Voltar</button>
+    </div>
+
+    <script>
+        const nextButton = document.getElementById('next-button');
+        // Função para determinar as disciplinas com base no curso, ano e semestre
+        function obterDisciplinas(curso, ano, semestre) {
+            const disciplinasPorCurso = {
+                LECC: {
+                    "1-1": ["ALGA", "Matemática geral", "Física I", " Introduca a Informática", "Ingles Tecnico", "Fundamentos de programacao"],
+                    "1-2": ["Analise Matematica I", "Fisica II", "Programacao I", "ATC", "Tecnicas de Comunicacao", "Metodos de Estudo",],
+                    "2-1": ["Analise matematica II", "Matematica Discreta", "Probabilidade e Estatística", "Sistemas operativos", "Teoria da Computacao"],
+                    "2-2": ["Algoritmo e Estrutura de Dados I", "Analise MAtematica III", "Analise Numerica", "Investigacao Operacional", "Programacao III", "Sistemas Operativos"],
+                    "3-1": ["Algoritmo e Estrutura de Dados II", "Analise e Moderacao de Sistemas", "Base de dados", "Computacao Grafica", "Programacao Web I", "Redes IP"],
+                    "3-2": ["Compiladores", "Engenharia de Dados", "Fundamentos de Sitemas De comunicacao", "Gestacao de Redes e Servicos IP", "Programacao Web II", "Sistemas Distribuidos e Paralelos"],
+                    "4-1": ["Arquitetura Empresarial I ", "Computacao em Nuvem", "Inteligencia Artificial I", "Programacao para dispositivos Moveis", "Projecto Final de Curso", "Proteccao de Dados", "Seguranca Informatica e das Comunicacoes"],
+                    "4-2": ["Arquitetura Empresarial II", "Empreendedorismo e Gestao de Empresas", "Engenharia de Software", "Inteligencia Arrificial II", "Teste e Validacao de Software"],
+                    "5-1": ["Aprendizagem em Maquina", "Desenho de Jogos", "Etica,Sociedade e Ambiente", "Seguranca Cibernetica"]
+                },
+                LEIT: {
+                    "1-1": ["Introdução à TI", "Cálculo", "Física", "Lógica"],
+                    "1-2": ["Banco de Dados", "Programação", "Gestão de Projetos", "Redes"]
+                },
+                LEE: {
+                    "1-1": ["Circuitos Elétricos", "Cálculo", "Física I", "Laboratório de Física"],
+                    "1-2": ["Eletrônica Básica", "Álgebra Linear", "Física II", "Laboratório de Eletrônica"]
+                },
+                LEMT: {
+                    "1-1": ["Mecânica", "Cálculo", "Física", "Desenho Técnico"],
+                    "1-2": ["Termodinâmica", "Materiais de Construção", "Estática", "Dinâmica"]
+                },
+                LCA: {
+                    "1-1": ["Contabilidade Geral", "Introducao a Gestao e Financas", "Introducao Informatica", "Metodos de estudo", "Tecnicas de Estudo"],
+                    "1-2": ["Contabilidade Financeira", "Economia I", "Estatistica", "Gestao Comercial e de Marketing", "Ingles Tecnico", "Metodos Matematicos II"],
+                    "2-1": ["Contabilidade de Gestao I", "Contabilidade Financeira II", "Direito da Empresa e do Trabalho", "economia II", "Estatisticas", "Matematica Aplicada", "Organizacao de Empresas"],
+                    "2-2": ["Auditoria Interna", "Calculo Financeiro", "Contabilidade Financeira II", "Contabilidade Financeira III", "Direito Comercial", "Investigacao Operacional"],
+                    "3-1": ["Auditoria Financeira I", "Calculo Financeiro", "Contabilidade de Gestao II", "Contabilidade Publica", "Fiscalidade", "Gestao de Recursos Humanos", "Gestao Financeira e Orcamental I", "Matematica aplicada", "Sistema e Mercados Financeiros"],
+                    "3-2": ["Auditoria e Seguranca Informatica", "Auditoria Financeira II", "Comportamento Organizacional", "Estrategia,Planeamento e Controlo"],
+                    "4-1": ["Analise e Gestao de Projectos", "Auditoria Fiscal", "Contabilidade Bancaria e de SEguros", "Empreendedorismo", "Etica, Deontologia e Sustentabilidade", "Gestao Financeira e Orcamental I", "Gestao Financeira e Orcamental II", "Projecto Final do curso", "Simulacao Empresarial"],
+                    "4-2": ["Estagio Pre-profissional"]
+                },
+
+                LEA: {
+                    "1-1": ["Algebra Linear e Geometria Analitica", "Fisica I", "INtroducao a Engenharia Ambiental", "Mateamtica Geral", "Quimica", "Tecnicas de comunicacao"],
+                    "1-2": ["Analise Matematica I", "Fisica II", "Ingles Tecnico", "Introducao a informtica", "Metodos de Estudo", "Topografia"],
+                    "2-1": ["Ambiente,Qualidade, Seguranca e Saude", "Analise Matematica II", "Analise Numerica", "Biologia", "Cartografia Ambiental", "Probabilidades e Estatisticas", "Topografia"],
+                    "2-2": ["Analise MAtematica III", "Avaliacao de Impacto Ambiental", "Geotecnia", "Investigacao Operacional", "Principios de Genetica e Microbiologia", "Sistemas de Infromacao Geografica e Modelacao em Ambiente "],
+                    "3-1": ["Auditoria e Monitoria Ambiental", "Ecologia", "Economia e Direito do Ambiente", "Fisiologia Vegetal e Animal", "Hidrologia", "Tecnicas Laboratoriais em Engenharia Ambiental"],
+                    "3-2": ["Ecologia Marinha e de Aguas Continentais", "Energia e Mudancas Climaticas", "Gestao Costeira", "Gestao de Residuos Solidos Urbanos, Industriais e Perigosos", "Hidraulica", "Planeamento Fisico e Ordenamento Territorial"],
+                    "4-1": ["Logistica de Transportes", "Poluicao Atmosferica e Sonora", "Poluicao de Solos", "Poluicao e tratamento de Agua", "Processos em Ambiente e Energia", "Risco e Desastres e Mudancas Climaticas"],
+                    "4-2": ["Desterritolizacao e Reassentamentos", "Empreendedorismo e Gestao de Empresas", "Gestao de Projectos", "Impacto Ambiental de Infraestuturas e Industria", "Metodo de Investigacao Cientifica e Tecnologica", "Urbanismo e Mobilidade"],
+                    "5-1": ["Estudos de Impacto Ambiental", "Etica e Sociedade"]
+                },
+                LECT: {
+                    "1-1": ["ALGA", "Desenho Tecnico", "Física I", "Introducao a Engenharia Civil", "Matematica Geral", "Tecnicas de Comunicacao"],
+                    "1-2": ["Analise Matematica I", "Desenho Tecnico II", "Fisica II", "Ingles Tecnico", "Introducao a Informatica", "Metodos de Estudo"],
+                    "2-1": ["Analise Matematica II", "Estatica", "Geotecnica", "Probabilidades e Estatistica", "Quimica", "Topografia"],
+                    "2-2": ["Analise Matematica III", "Hidrologia", "Investigacao Operacional", "Materiais de construcao II", "Mecanica de Solos e Fundacoes I", "Mecanica Teorica"],
+                    "3-1": ["Hidraulica I", "Instalacoes Prediais", "Materiais de Construcao II", "Mecanica de Solos e Fundacoes II", "Mecanica Teorica", "Vias de Comunicacao,", "Resistencia de Materiais"]
+                },
+
+            };
+
+            const chave = `${ano}-${semestre}`;
+            return disciplinasPorCurso[curso]?.[chave] || [];
+        }
+
+        // Recupera as informações do localStorage
+        const curso = localStorage.getItem('curso');
+        const ano = localStorage.getItem('ano');
+        const semestre = localStorage.getItem('semestre');
+
+        // Elementos da página
+        const cursoInfo = document.getElementById('curso-info');
+        const disciplinasSelect = document.getElementById('disciplinas-select');
+
+        // Atualiza a interface com as disciplinas
+
+
+        const disciplinas = obterDisciplinas(curso, ano, semestre);
+
+        if (disciplinas.length > 0) {
+            disciplinasSelect.innerHTML = '<option value="">Seleccione uma disciplina</option>';
+            disciplinas.forEach(disciplina => {
+                const option = document.createElement('option');
+                option.value = disciplina;
+                option.textContent = disciplina;
+                disciplinasSelect.appendChild(option);
+            });
+        } else {
+            disciplinasSelect.innerHTML = '<option value="">Sem disciplinas disponíveis.</option>';
+        }
+        nextButton.addEventListener('click', () => {
+            const disciplinaSelecionada = disciplinasSelect.value;
+            if (disciplinaSelecionada) {
+                localStorage.setItem("disciplina", disciplinaSelecionada);
+                window.location.href = "faltas.html";
+            } else {
+                alert("Por favor, selecione uma disciplina antes de continuar.");
+            }
+        });
+
+        // Função para voltar
+        function voltar() {
+            window.history.back();
+        }
+
+    </script>
+</body>
+
+</html>
