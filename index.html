@@ -1,96 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vais ou Ficas - Ano</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Swee</title>
     <style>
         body {
-            font-family: 'Rubik', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-        }
-
-        .container {
-            text-align: center;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background-color: white;
+            flex-direction: column;
+            font-family: 'Abril Fatface', cursive;
         }
 
         img {
-            max-width: 100%;
+            width: 200px;
             height: auto;
-            margin-bottom: 20px;
         }
 
-        select,
-        button {
-            width: 80%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
+        .start-button {
+            margin-top: 20px;
+            font-size: 24px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
             cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <div class="container" id="container">
-        <img src="transferir.jpg" alt="Imagem">
-        <h2>Em que ano você está?</h2>
-        <select id="ano-select">
-            <option value="">Selecione o ano</option>
-            <option value="1">1º Ano</option>
-            <option value="2">2º Ano</option>
-            <option value="3">3º Ano</option>
-            <option value="4">4º Ano</option>
-        </select>
-        <button id="next-button">Próximo</button>
-        <button onclick="voltar()">Voltar</button>
-    </div>
-    <script>
-        const container = document.getElementById('container');
-        const nextButton = document.getElementById('next-button');
-        const anoSelect = document.getElementById('ano-select');
-
-        nextButton.addEventListener('click', () => {
-            const ano = anoSelect.value.trim(); // Obtem o valor selecionado
-            if (!ano) {
-                alert('Por favor, selecione o curso.');
-                return;
-            }
-
-            // Armazena o valor selecionado no localStorage
-            localStorage.setItem("ano", ano);
-
-            // Redireciona para a próxima página
-            window.location.href = "semestre.html";
-        });
-        function voltar() {
-            window.history.back();
-        }
-    </script>
+    <img src="transferir.jpg" alt="Gatinho">
+    <a href="curso.html" class="start-button">START</a>
 </body>
 
 </html>

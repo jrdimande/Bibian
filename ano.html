@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vais ou Ficas - Faltas</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="transferir.jpg" alt="Imagem ilustrativa">
+        <h2>Insira o número de faltas</h2>
+        <input type="number" id="faltas-input" placeholder="Digite o número de faltas" min="0">
+        <button id="next-button">Next</button>
+    </div>
+
+    <script>
+        // Referências aos elementos
+        const nextButton = document.getElementById('next-button');
+        const faltasInput = document.getElementById('faltas-input');
+
+        // Evento de clique no botão
+        nextButton.addEventListener('click', () => {
+            const faltas = faltasInput.value.trim(); // Obtem o valor inserido
+
+            // Validação: verificar se é um número válido
+            if (!faltas || isNaN(faltas) || parseInt(faltas) < 0) {
+                alert('Por favor, insira um número válido de faltas.');
+                return;
+            }
+
+            // Armazena o valor no localStorage
+            localStorage.setItem("faltas", faltas);
+
+            // Redireciona para a próxima página
+            window.location.href = "faltas.html";
+        });
+    </script>
+</body>
+
+</html>
