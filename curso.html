@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt">
 
 <head>
@@ -74,18 +74,17 @@
             <option value="LEGBS">LEGBS</option>
             <option value="LGF">LGF</option>
         </select>
-        <button onclick="window.location.href='disciplina.html'">Ir para outra página</button>
-
+        <button id="next-button">Next</button>
     </div>
 
     <script>
         // Referências aos elementos
         const nextButton = document.getElementById('next-button');
-        const anoSelect = document.getElementById('curso-select'); // Alterado para 'curso-select'
+        const cursoSelect = document.getElementById('curso-select');
 
         // Evento de clique no botão
         nextButton.addEventListener('click', () => {
-            const curso = anoSelect.value.trim(); // Alterado para 'anoSelect.value'
+            const curso = cursoSelect.value.trim();
             if (!curso) {
                 alert('Por favor, selecione o curso.');
                 return;
@@ -94,8 +93,8 @@
             // Armazena o valor selecionado no localStorage
             localStorage.setItem("curso", curso);
 
-            // Redireciona para a próxima página
-            window.location.href = "ano.html";
+            // Redireciona para disciplina.html
+            window.location.href = "disciplina.html";
         });
     </script>
 </body>
