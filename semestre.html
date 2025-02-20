@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vais ou Ficas - Ano</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="9e6c4cd376c9a3be689962f74fe94f5d.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        select,
+        button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="transferir.jpg" alt="Imagem ilustrativa">
+        <h2>Selecione o semestre</h2>
+        <select id="semestre-select">
+            <option value="">Selecione o semestre</option>
+            <option value="1">1º semestre</option>
+            <option value="2">2º semestre</option>
+        </select>
+        <button id="next-button">Next</button>
+        <button onclick="voltar()">Voltar</button>
+    </div>
+
+    <script>
+        // Referências aos elementos
+        const nextButton = document.getElementById('next-button');
+        const semestreSelect = document.getElementById('semestre-select'); // Corrigido aqui
+
+        // Evento de clique no botão
+        nextButton.addEventListener('click', () => {
+            const semestre = semestreSelect.value.trim(); // Corrigido aqui
+            if (!semestre) {
+                alert('Por favor, selecione o semestre.');
+                return;
+            }
+
+            // Armazena o valor selecionado no localStorage
+            localStorage.setItem("semestre", semestre);
+
+            // Redireciona para a próxima página
+            window.location.href = "disciplina.html";
+        });
+
+        // Função para voltar
+        function voltar() {
+            window.history.back();
+        }
+    </script>
+</body>
+
+</html>
