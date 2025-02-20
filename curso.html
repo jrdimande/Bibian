@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt">
 
 <head>
@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swee</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="9e6c4cd376c9a3be689962f74fe94f5d.jpg" type="image/x-icon">
     <style>
         body {
             font-family: 'Rubik', sans-serif;
@@ -80,11 +81,11 @@
     <script>
         // Referências aos elementos
         const nextButton = document.getElementById('next-button');
-        const cursoSelect = document.getElementById('curso-select');
+        const anoSelect = document.getElementById('curso-select'); // Alterado para 'curso-select'
 
         // Evento de clique no botão
         nextButton.addEventListener('click', () => {
-            const curso = cursoSelect.value.trim();
+            const curso = anoSelect.value.trim(); // Alterado para 'anoSelect.value'
             if (!curso) {
                 alert('Por favor, selecione o curso.');
                 return;
@@ -93,8 +94,8 @@
             // Armazena o valor selecionado no localStorage
             localStorage.setItem("curso", curso);
 
-            // Redireciona para disciplina.html
-            window.location.href = "disciplina.html";
+            // Redireciona para a próxima página
+            window.location.href = "ano.html";
         });
     </script>
 </body>
